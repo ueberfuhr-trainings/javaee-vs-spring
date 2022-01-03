@@ -55,7 +55,7 @@
 
 	<build>
 		<!-- Dateiname ohne Version siehe server.xml -->
-		<finalName>${project.artifactId}</finalName>
+		<finalName>todos-app</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
