@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Todos-Verwaltung</title>
+</head>
+<body>
+	<h1>Willkommen</h1>
+	<h2>Todos-Verwaltung</h2>
+	<ul>
+		<li><a href="anzeige">Anzeige der Todos</a></li>
+		<li><a href="insert.html">Anlegen eines Todos</a></li>
+		<li><a href="suche.html">Suche eines Todos</a></li>
+	</ul>
+
+	<h2>Webservices</h2>
+	<ul>
+		<li><a href="api/v1/todos">REST: Alle Todos</a></li>
+		<li><a href="api/v1/todos/1">REST: Todo mit ID=1</a></li>
+		<li><a href="TodosSoapService">SOAP (GET zeigt nur eine kurze
+				Info an)</a></li>
+		<li><a href="TodosSoapService?wsdl">SOAP: WSDL</a></li>
+	</ul>
+
+	<form action="TodosSoapService" method="post">
+		<input type="submit"
+			value="SOAP-Service aufrufen (ohne SOAP-Nachricht)">
+	</form>
+
+	<h2>Hello World</h2>
+	<ul>
+		<li><a href="hello">Hello World!</a></li>
+		<li><a href="hello?name=Tom">Hello Tom!</a></li>
+		<li><a href="helloworld.jsp">Hello World!</a></li>
+		<li><a href="helloworld.jsp?name=Tom">Hello Tom!</a></li>
+		<li><a href="db">Database Test</a></li>
+	</ul>
+
+	<form action="hello" method="get">
+		<label for="txtName">Name: </label> <input type="text" name="name"
+			id="txtName"> <input type="submit">
+	</form>
+
+</body>
+</html>

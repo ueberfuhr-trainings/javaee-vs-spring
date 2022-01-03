@@ -1,0 +1,25 @@
+<server>
+	<featureManager>
+		<feature>localConnector-1.0</feature>
+		<feature>jaxrs-2.1</feature>
+		<feature>servlet-4.0</feature>
+		<feature>jsp-2.3</feature>
+		<feature>cdi-2.0</feature>
+		<feature>beanValidation-2.0</feature>
+		<feature>jpa-2.2</feature>
+	</featureManager>
+	
+	<library id="h2driver">
+		<fileset dir="C:\dev\maven3_repos\com\h2database\h2\1.4.200" includes="h2*.jar"/>
+	</library>
+	<dataSource jndiName="jdbc/TodoDB">
+		<jdbcDriver
+			javax.sql.DataSource="org.h2.jdbcx.JdbcDataSource"
+			libraryRef="h2driver"
+		 />
+		<properties URL="jdbc:h2:./h2/todos;DB_CLOSE_DELAY=-1;MODE=DB2;AUTO_SERVER=TRUE" />
+		<properties user="sa" />
+	</dataSource>
+	
+	<webApplication id="todos-app" contextRoot="/todos-app" location="todos-javaee-spring.war"/>
+</server>
