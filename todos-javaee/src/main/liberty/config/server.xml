@@ -11,7 +11,7 @@
 	</featureManager>
 	
 	<library id="h2driver">
-		<fileset dir="C:\dev\maven3_repos\com\h2database\h2\1.4.200" includes="h2*.jar"/>
+		<fileset dir="${shared.resource.dir}" includes="h2*.jar" />
 	</library>
 	<dataSource jndiName="jdbc/TodoDB">
 		<jdbcDriver
