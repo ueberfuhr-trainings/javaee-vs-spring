@@ -13,19 +13,17 @@ import de.deutscherv.gb0500.schulung.common.persistence.TodoEntityMapper;
 public class TodosDataSinkSpringImpl implements TodosDataSink {
 
 	private final TodosRepository repo;
-	
-	public TodosDataSinkSpringImpl(TodosRepository repo) {
+	private final TodoEntityMapper mapper;
+
+	public TodosDataSinkSpringImpl(TodosRepository repo, TodoEntityMapper mapper) {
 		super();
 		this.repo = repo;
+		this.mapper = mapper;
 	}
 
 	@Override
 	public Collection<Todo> findAll() {
-		// TODO Dep. Inj.
-		TodoEntityMapper mapper = new TodoEntityMapper();
-		return repo.findAll().stream()
-			.map(mapper::map)
-			.collect(Collectors.toList());
+		return repo.findAll().stream().map(mapper::map).collect(Collectors.toList());
 	}
 
 }
