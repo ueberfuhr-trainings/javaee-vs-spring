@@ -1,9 +1,19 @@
-package de.deutscherv.gb0500.schulung.common.domain;
+package de.deutscherv.gb0500.schulung.common.persistence;
 
 import java.time.LocalDate;
 
-public class Todo {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "todos")
+public class TodoEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String title;
 	private String description;
@@ -50,10 +60,5 @@ public class Todo {
 		this.done = done;
 	}
 
-	@Override
-	public String toString() {
-		return "Todo [title=" + title + ", description=" + description + ", dueDate=" + dueDate + ", done=" + done
-				+ "]";
-	}
-
+	
 }

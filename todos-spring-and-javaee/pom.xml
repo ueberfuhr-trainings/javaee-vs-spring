@@ -29,6 +29,13 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-bom</artifactId>
+				<version>2021.1.0</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
 				<groupId>com.ibm.websphere.appserver.features</groupId>
 				<artifactId>features-bom</artifactId>
 				<version>${version.liberty.profile}</version>
@@ -50,6 +57,10 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 		<!-- für Eclipse-Tooling-Support -->
 		<dependency>
