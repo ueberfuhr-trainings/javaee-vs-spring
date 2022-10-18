@@ -10,8 +10,9 @@
 
 	<modules>
 		<module>todos-javaee</module>
-		<module>todos-javaee-spring</module>
+		<module>todos-spring</module>
 		<module>todos-spring-boot</module>
+		<module>todos-spring-and-javaee</module>
 	</modules>
 
 </project>

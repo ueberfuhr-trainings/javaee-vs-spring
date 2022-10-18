@@ -1,10 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.sample.javax</groupId>
-	<artifactId>todos-javaee</artifactId>
+	<groupId>de.deutscherv.gb0500.schulung</groupId>
+	<artifactId>todos-spring-and-javaee</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Todos Management Application (Plain Java EE)</name>
+	<name>Todos Management Application (both Java EE and Spring together)</name>
 
 	<properties>
 		<!-- Standard-Properties durch Maven Plugins -->
@@ -14,11 +14,20 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- Java EE version -->
 		<version.javaee-spec>8.0.1</version.javaee-spec>
-		<version.liberty.profile>20.0.0.10</version.liberty.profile>
+		<version.liberty.profile>22.0.0.10</version.liberty.profile>
+		<!-- Spring Version -->
+		<version.spring>5.3.14</version.spring>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${version.spring}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>com.ibm.websphere.appserver.features</groupId>
 				<artifactId>features-bom</artifactId>
@@ -30,18 +39,17 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- Java EE -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>${version.javaee-spec}</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.jws/javax.jws-api -->
+		<!-- Spring -->
 		<dependency>
-			<groupId>javax.jws</groupId>
-			<artifactId>javax.jws-api</artifactId>
-			<version>1.1</version>
-			<scope>provided</scope>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<!-- für Eclipse-Tooling-Support -->
 		<dependency>
@@ -71,6 +79,7 @@
 		</pluginManagement>
 	</build>
 
+
 	<profiles>
 		<profile>
 			<id>local</id>
@@ -83,7 +92,7 @@
 						<version>3.2.1</version>
 						<extensions>true</extensions>
 						<configuration>
-							<configFile>src/main/liberty/config/server.xml</configFile>
+							<configFile>src/main/liberty/server.xml</configFile>
 							<assemblyArtifact>
 								<groupId>com.ibm.websphere.appserver.runtime</groupId>
 								<artifactId>wlp-javaee8</artifactId>
@@ -117,25 +126,6 @@
 									<looseApplication>true</looseApplication>
 									<stripVersion>true</stripVersion>
 									<installAppPackages>project</installAppPackages>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<!-- - - - - - - copy h2 to shared resources - - - -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<version>3.1.1</version>
-						<executions>
-							<execution>
-								<id>copy-h2-dependency</id>
-								<phase>package</phase>
-								<goals>
-									<goal>copy-dependencies</goal>
-								</goals>
-								<configuration>
-									<includeArtifactIds>h2</includeArtifactIds>
-									<outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/</outputDirectory>
 								</configuration>
 							</execution>
 						</executions>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Todos-Verwaltung</title>
+</head>
+<body>
+
+	<h1>Todos-Verwaltung</h1>
+	
+	<h2>Datenbank testen</h2>
+	<ul>
+		<li><a href="./db">Datasource testen</a></li>
+		<li><a href="./db-jpa">JPA testen</a></li>
+	</ul>
+	
+	<h2>Alle Todos anzeigen</h2>
+	<ul>
+		<li><a href="./todos">mit Java EE</a></li>
+		<li><a href="./spring/todos/all">mit Spring</a></li>
+	</ul>
+
+	<h2>Todos suchen</h2>
+	<!-- mit Java EE -->
+	<form action="./search" method="get">
+		<input type="text" required="required" name="searchtext">
+		<input type="submit" value="Suche mit Java EE">
+	</form>
+
+	<!-- mit Spring -->
+	<form action="./spring/todos/search" method="get">
+		<input type="text" required="required" name="searchtext">
+		<input type="submit" value="Suche mit Spring">
+	</form>
+
+
+</body>
+</html>
