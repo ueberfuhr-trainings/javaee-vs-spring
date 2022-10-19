@@ -45,24 +45,20 @@ public class CreateServlet extends HttpServlet {
 		// Bean Validation
 		Set<ConstraintViolation<Todo>> violations = validator.validate(newTodo);
 		if(!violations.isEmpty()) {
-			response.setContentType("text/plain");
-			try(PrintWriter out = response.getWriter()) {
-				out.println("Validierungsfehler:");
-				violations.forEach(v -> {
-					out.println(" - " + v.getPropertyPath() + "( " + v.getMessage() + " )");
-				});
-			}
-			return;
+			request.setAttribute("violations", violations);
+			getServletContext()
+				.getRequestDispatcher("/WEB-INF/jsp/validation-errors.jsp")
+				.forward(request, response);
+		} else {
+			// Aktion: Todos suchen
+			Todo todo = service.createTodo(newTodo);
+			// Antwort generieren
+			request.setAttribute("todo", todo);
+			getServletContext()
+				.getRequestDispatcher("/WEB-INF/jsp/todo-details.jsp")
+				.forward(request, response);
+
 		}
-		
-		// Aktion: Todos suchen
-		Todo todo = service.createTodo(newTodo);
-		
-		// Antwort generieren
-		request.setAttribute("todo", todo);
-		getServletContext()
-			.getRequestDispatcher("/WEB-INF/jsp/todo-details.jsp")
-			.forward(request, response);
 
 	}
 

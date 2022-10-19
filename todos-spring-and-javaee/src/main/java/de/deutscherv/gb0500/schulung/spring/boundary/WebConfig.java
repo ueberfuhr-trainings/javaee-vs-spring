@@ -1,5 +1,9 @@
 package de.deutscherv.gb0500.schulung.spring.boundary;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -15,6 +19,13 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 public class WebConfig {
+	
+	@Bean
+	public Validator validator() {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		return validator;
+	}
 
 	@Bean
 	public WebMvcConfigurer configureWeb() {
