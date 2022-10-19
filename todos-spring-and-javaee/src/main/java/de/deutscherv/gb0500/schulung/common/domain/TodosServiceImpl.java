@@ -40,4 +40,9 @@ public class TodosServiceImpl implements TodosService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public Todo createTodo(Todo newTodo) {
+		return sink.insert(newTodo);
+	}
+
 }
