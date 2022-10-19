@@ -10,8 +10,8 @@ import de.deutscherv.gb0500.schulung.common.domain.TodosService;
 @RequestMapping("jdbc/todos")
 public class TodosJdbcTemplateController extends TodosController {
 
-	public TodosJdbcTemplateController(@Qualifier("jdbcTemplateTodosService") TodosService service) {
-		super(service);
+	public TodosJdbcTemplateController(@Qualifier("jdbcTemplateTodosService") TodosService service, TodoValidator validator) {
+		super(service, validator);
 	}
 	
 }

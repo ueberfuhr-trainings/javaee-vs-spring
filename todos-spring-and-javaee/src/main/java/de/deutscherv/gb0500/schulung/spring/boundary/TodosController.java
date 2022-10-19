@@ -3,8 +3,12 @@ package de.deutscherv.gb0500.schulung.spring.boundary;
 import java.time.LocalDate;
 import java.util.Collection;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +25,16 @@ import de.deutscherv.gb0500.schulung.common.domain.TodosService;
 
 @Controller
 @RequestMapping("/todos")
+@Validated
 public class TodosController {
 
 	private final TodosService service;
+	private final TodoValidator validator;
 
-	public TodosController(TodosService service) {
+	public TodosController(TodosService service, TodoValidator validator) {
 		super();
 		this.service = service;
+		this.validator = validator;
 	}
 	
 	@GetMapping(value="/all")
@@ -51,11 +58,13 @@ public class TodosController {
 	}
 	
 	@PostMapping("/create")
-	public String create(Model model, @RequestParam("title") String title) {
+	public String create(Model model, @Valid @Size(min=3) @RequestParam("title") String title) {
 		// Todo erzeugen
 		Todo newTodo = new Todo();
 		newTodo.setTitle(title);
 		newTodo.setDueDate(LocalDate.now().plusDays(14));
+		this.validator.validate(newTodo);
+		
 		// Aktion: Todos suchen
 		Todo todo = service.createTodo(newTodo);
 		// Todo ausgeben
@@ -63,6 +72,5 @@ public class TodosController {
 		return "todo-details";
 
 	}
-	
 	
 }

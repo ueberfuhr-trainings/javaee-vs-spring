@@ -2,9 +2,14 @@ package de.deutscherv.gb0500.schulung.common.domain;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Todo {
 
 	private Long id;
+	@NotNull
+	@Size(min = 3)
 	private String title;
 	private String description;
 	private LocalDate dueDate;
