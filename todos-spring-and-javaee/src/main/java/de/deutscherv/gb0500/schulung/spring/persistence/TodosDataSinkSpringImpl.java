@@ -3,6 +3,7 @@ package de.deutscherv.gb0500.schulung.spring.persistence;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import de.deutscherv.gb0500.schulung.common.domain.Todo;
@@ -10,6 +11,7 @@ import de.deutscherv.gb0500.schulung.common.domain.TodosDataSink;
 import de.deutscherv.gb0500.schulung.common.persistence.TodoEntity;
 import de.deutscherv.gb0500.schulung.common.persistence.TodoEntityMapper;
 
+@Primary
 @Component
 public class TodosDataSinkSpringImpl implements TodosDataSink {
 

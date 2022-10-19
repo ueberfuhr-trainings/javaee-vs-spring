@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 public class DatabaseConnectionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Resource(lookup = "jdbc/TodoDB")
+    @Inject
     DataSource ds;
 
     @Override
