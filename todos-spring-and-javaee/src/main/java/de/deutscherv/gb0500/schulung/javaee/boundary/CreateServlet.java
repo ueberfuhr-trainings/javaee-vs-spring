@@ -1,7 +1,6 @@
 package de.deutscherv.gb0500.schulung.javaee.boundary;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Set;
 
