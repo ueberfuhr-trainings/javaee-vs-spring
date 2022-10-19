@@ -2,9 +2,10 @@ package de.deutscherv.gb0500.schulung.spring.boundary;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Set;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,15 +30,15 @@ import de.deutscherv.gb0500.schulung.common.domain.TodosService;
 public class TodosController {
 
 	private final TodosService service;
-	private final TodoValidator validator;
+	private final Validator validator;
 
-	public TodosController(TodosService service, TodoValidator validator) {
+	public TodosController(TodosService service, Validator validator) {
 		super();
 		this.service = service;
 		this.validator = validator;
 	}
-	
-	@GetMapping(value="/all")
+
+	@GetMapping(value = "/all")
 	public String getAllTodosAsString(Model model) {
 		// Todos aus dem TodosService lesen
 		Collection<Todo> todos = service.getTodos();
@@ -46,8 +47,8 @@ public class TodosController {
 		model.addAttribute("spring", true);
 		return "todos-ausgabe";
 	}
-	
-	@GetMapping(value="/search")
+
+	@GetMapping(value = "/search")
 	public String search(Model model, @RequestParam("searchtext") String st) {
 		// Todos aus dem TodosService lesen
 		Collection<Todo> todos = service.findTodos(st);
@@ -56,21 +57,27 @@ public class TodosController {
 		model.addAttribute("spring", true);
 		return "todos-ausgabe";
 	}
-	
+
 	@PostMapping("/create")
-	public String create(Model model, @Valid @Size(min=3) @RequestParam("title") String title) {
+	public String create(Model model, @RequestParam("title") String title) {
 		// Todo erzeugen
 		Todo newTodo = new Todo();
 		newTodo.setTitle(title);
 		newTodo.setDueDate(LocalDate.now().plusDays(14));
-		this.validator.validate(newTodo);
-		
-		// Aktion: Todos suchen
-		Todo todo = service.createTodo(newTodo);
-		// Todo ausgeben
-		model.addAttribute("todo", todo);
-		return "todo-details";
+		// Validate
+		Set<ConstraintViolation<Todo>> violations = validator.validate(newTodo);
+		// TODO react...
+		if (!violations.isEmpty()) {
+			model.addAttribute("violations", violations);
+			return "validation-errors";
+		} else {
+			// Aktion: Todos suchen
+			Todo todo = service.createTodo(newTodo);
+			// Todo ausgeben
+			model.addAttribute("todo", todo);
+			return "todo-details";
+		}
 
 	}
-	
+
 }
