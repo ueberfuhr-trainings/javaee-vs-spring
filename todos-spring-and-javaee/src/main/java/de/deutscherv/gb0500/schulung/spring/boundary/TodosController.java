@@ -44,6 +44,7 @@ public class TodosController {
 		return "todos-ausgabe";
 	}
 	
+	// Spring MVC Way: https://www.baeldung.com/spring-mvc-form-tutorial
 	@PostMapping("/create")
 	public String create(Model model, @RequestParam("title") String title) {
 		// Todo erzeugen
