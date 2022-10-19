@@ -1,7 +1,9 @@
 package de.deutscherv.gb0500.schulung.javaee.boundary;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -9,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import de.deutscherv.gb0500.schulung.common.domain.Todo;
 import de.deutscherv.gb0500.schulung.common.domain.TodosService;
@@ -19,6 +23,8 @@ public class CreateServlet extends HttpServlet {
 
 	@Inject
 	private TodosService service;
+	@Inject
+	private Validator validator;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -35,6 +41,19 @@ public class CreateServlet extends HttpServlet {
 		Todo newTodo = new Todo();
 		newTodo.setTitle(title);
 		newTodo.setDueDate(LocalDate.now().plusDays(14));
+		
+		// Bean Validation
+		Set<ConstraintViolation<Todo>> violations = validator.validate(newTodo);
+		if(!violations.isEmpty()) {
+			response.setContentType("text/plain");
+			try(PrintWriter out = response.getWriter()) {
+				out.println("Validierungsfehler:");
+				violations.forEach(v -> {
+					out.println(" - " + v.getPropertyPath() + "( " + v.getMessage() + " )");
+				});
+			}
+			return;
+		}
 		
 		// Aktion: Todos suchen
 		Todo todo = service.createTodo(newTodo);
