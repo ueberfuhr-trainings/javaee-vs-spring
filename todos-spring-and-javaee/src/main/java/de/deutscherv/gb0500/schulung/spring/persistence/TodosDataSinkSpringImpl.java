@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import de.deutscherv.gb0500.schulung.common.domain.Todo;
 import de.deutscherv.gb0500.schulung.common.domain.TodosDataSink;
+import de.deutscherv.gb0500.schulung.common.persistence.TodoEntity;
 import de.deutscherv.gb0500.schulung.common.persistence.TodoEntityMapper;
 
 @Component
@@ -24,6 +25,14 @@ public class TodosDataSinkSpringImpl implements TodosDataSink {
 	@Override
 	public Collection<Todo> findAll() {
 		return repo.findAll().stream().map(mapper::map).collect(Collectors.toList());
+	}
+
+	@Override
+	public Todo insert(Todo newTodo) {
+		TodoEntity entity = mapper.map(newTodo);
+		TodoEntity savedEntity = repo.save(entity);
+		Todo result = mapper.map(savedEntity);
+		return result;
 	}
 
 }

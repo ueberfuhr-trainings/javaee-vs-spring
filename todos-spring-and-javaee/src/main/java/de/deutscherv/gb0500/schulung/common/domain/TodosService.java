@@ -6,5 +6,6 @@ public interface TodosService {
 	
 	Collection<Todo> getTodos();
 	Collection<Todo> findTodos(String st);
+	Todo createTodo(Todo newTodo);
 
 }

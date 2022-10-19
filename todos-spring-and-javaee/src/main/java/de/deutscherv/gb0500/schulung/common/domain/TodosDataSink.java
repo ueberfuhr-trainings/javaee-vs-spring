@@ -6,4 +6,6 @@ public interface TodosDataSink {
 
 	Collection<Todo> findAll();
 
+	Todo insert(Todo newTodo);
+
 }

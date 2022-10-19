@@ -4,18 +4,32 @@ import de.deutscherv.gb0500.schulung.common.domain.Todo;
 
 public class TodoEntityMapper {
 
-	public Todo map(TodoEntity entity) {
+	public Todo map(TodoEntity source) {
 		// TODO use MapStruct
-		if(null == entity) {
+		if(null == source) {
 			return null;
 		} else {
 			Todo t = new Todo();
-			t.setId(entity.getId());
-			t.setTitle(entity.getTitle());
-			t.setDueDate(entity.getDueDate());
-			t.setDone(entity.isDone());
+			t.setId(source.getId());
+			t.setTitle(source.getTitle());
+			t.setDueDate(source.getDueDate());
+			t.setDone(source.isDone());
 			return t;
 		}
 	}
-	
+
+	public TodoEntity map(Todo source) {
+		// TODO use MapStruct
+		if(null == source) {
+			return null;
+		} else {
+			TodoEntity t = new TodoEntity();
+			t.setId(source.getId());
+			t.setTitle(source.getTitle());
+			t.setDueDate(source.getDueDate());
+			t.setDone(source.isDone());
+			return t;
+		}
+	}
+
 }

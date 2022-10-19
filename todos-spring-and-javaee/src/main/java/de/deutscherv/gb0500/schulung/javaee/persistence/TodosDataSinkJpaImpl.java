@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import de.deutscherv.gb0500.schulung.common.domain.Todo;
 import de.deutscherv.gb0500.schulung.common.domain.TodosDataSink;
@@ -25,6 +26,15 @@ public class TodosDataSinkJpaImpl implements TodosDataSink {
 	public Collection<Todo> findAll() {
 		TypedQuery<TodoEntity> query = em.createQuery("SELECT t FROM TodoEntity t", TodoEntity.class);
 		return query.getResultStream().map(mapper::map).collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional
+	public Todo insert(Todo newTodo) {
+		TodoEntity entity = mapper.map(newTodo);
+		em.persist(entity);
+		Todo result = mapper.map(entity);
+		return result;
 	}
 
 }
