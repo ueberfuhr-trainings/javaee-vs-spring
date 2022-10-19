@@ -18,6 +18,7 @@
 	<ul>
 		<li><a href="./todos">mit Java EE</a></li>
 		<li><a href="./spring/todos/all">mit Spring</a></li>
+		<li><a href="./spring/jdbc/todos/all">mit Spring (JDBC)</a></li>
 	</ul>
 
 	<h2>Todos suchen</h2>
@@ -33,6 +34,12 @@
 		<input type="submit" value="Suche mit Spring">
 	</form>
 
+	<!-- mit Spring JDBC -->
+	<form action="./spring/jdbc/todos/search" method="get">
+		<input type="text" required="required" name="searchtext">
+		<input type="submit" value="Suche mit Spring (JDBC)">
+	</form>
+
 	<h2>Todos erstellen</h2>
 	<!-- mit Java EE -->
 	<form action="./create" method="post">
@@ -44,6 +51,12 @@
 	<form action="./spring/todos/create" method="post">
 		<input type="text" required="required" name="title">
 		<input type="submit" value="Erstellen mit Spring">
+	</form>
+
+	<!-- mit Spring (JDBC) -->
+	<form action="./spring/jdbc/todos/create" method="post">
+		<input type="text" required="required" name="title">
+		<input type="submit" value="Erstellen mit Spring (JDBC)">
 	</form>
 
 </body>
