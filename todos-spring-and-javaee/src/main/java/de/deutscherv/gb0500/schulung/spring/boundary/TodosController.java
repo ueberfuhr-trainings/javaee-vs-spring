@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import de.deutscherv.gb0500.schulung.common.domain.Todo;
 import de.deutscherv.gb0500.schulung.common.domain.TodosService;
 
+/*
+ * What could we do better:
+ *  - Use MVC Forms: https://www.baeldung.com/spring-mvc-form-tutorial
+ *  - Use Tiles: https://www.baeldung.com/spring-mvc-apache-tiles
+ */
+
 @Controller
 @RequestMapping("/todos")
 public class TodosController {
@@ -44,7 +50,6 @@ public class TodosController {
 		return "todos-ausgabe";
 	}
 	
-	// Spring MVC Way: https://www.baeldung.com/spring-mvc-form-tutorial
 	@PostMapping("/create")
 	public String create(Model model, @RequestParam("title") String title) {
 		// Todo erzeugen
