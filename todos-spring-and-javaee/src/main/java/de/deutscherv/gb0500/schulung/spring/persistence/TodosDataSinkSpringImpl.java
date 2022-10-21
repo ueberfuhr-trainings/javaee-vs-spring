@@ -1,6 +1,7 @@
 package de.deutscherv.gb0500.schulung.spring.persistence;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Primary;
@@ -35,6 +36,21 @@ public class TodosDataSinkSpringImpl implements TodosDataSink {
 		TodoEntity savedEntity = repo.save(entity);
 		Todo result = mapper.map(savedEntity);
 		return result;
+	}
+
+	@Override
+	public void save(Todo todo) {
+		this.repo.save(mapper.map(todo));
+	}
+
+	@Override
+	public void delete(long id) {
+		this.repo.deleteById(id);
+	}
+
+	@Override
+	public Optional<Todo> findById(long id) {
+		return this.repo.findById(id).map(mapper::map);
 	}
 
 }

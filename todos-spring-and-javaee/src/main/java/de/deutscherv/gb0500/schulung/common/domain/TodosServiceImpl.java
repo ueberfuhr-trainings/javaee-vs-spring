@@ -1,26 +1,12 @@
 package de.deutscherv.gb0500.schulung.common.domain;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TodosServiceImpl implements TodosService {
-	
-	private final TodosDataSink sink;
 
-//	{ // Quick n dirty
-//		Todo todo = new Todo();
-//		todo.setTitle("Staubsaugen");
-//		todo.setDueDate(LocalDate.now().plusDays(10));
-//		getTodos().add(todo);
-//		Todo todo2 = new Todo();
-//		todo2.setTitle("Aufräumen");
-//		todo2.setDueDate(LocalDate.now().plusDays(5));
-//		getTodos().add(todo2);
-//		Todo todo3 = new Todo();
-//		todo3.setTitle("Spring lernen");
-//		todo3.setDueDate(LocalDate.now().plusDays(2));
-//		getTodos().add(todo3);
-//	}
+	private final TodosDataSink sink;
 
 	public TodosServiceImpl(TodosDataSink sink) {
 		super();
@@ -35,14 +21,38 @@ public class TodosServiceImpl implements TodosService {
 	@Override
 	public Collection<Todo> findTodos(String st) {
 		// TODO Suche direkt auf der Datenbank
-		return getTodos().stream()
-				.filter(t -> t.getTitle().toLowerCase().contains(st.toLowerCase()))
+		return getTodos().stream().filter(t -> t.getTitle().toLowerCase().contains(st.toLowerCase()))
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public Todo createTodo(Todo newTodo) {
 		return sink.insert(newTodo);
+	}
+
+	@Override
+	public Optional<Todo> findTodoById(long id) {
+		return sink.findById(id);
+	}
+
+	@Override
+	public boolean deleteTodo(long id) {
+		if (sink.findById(id).isPresent()) {
+			sink.delete(id);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateTodo(Todo todo) {
+		if (sink.findById(todo.getId()).isPresent()) {
+			sink.save(todo);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

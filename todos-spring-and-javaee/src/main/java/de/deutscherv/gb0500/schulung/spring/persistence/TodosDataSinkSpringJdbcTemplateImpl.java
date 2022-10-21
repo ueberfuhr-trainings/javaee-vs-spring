@@ -61,4 +61,22 @@ public class TodosDataSinkSpringJdbcTemplateImpl implements TodosDataSink {
 		return todo;
 	}
 
+	@Override
+	public void save(Todo todo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Optional<Todo> findById(long id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
 }

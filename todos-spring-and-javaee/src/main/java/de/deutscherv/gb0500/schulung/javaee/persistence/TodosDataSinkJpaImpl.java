@@ -1,6 +1,7 @@
 package de.deutscherv.gb0500.schulung.javaee.persistence;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -35,6 +36,21 @@ public class TodosDataSinkJpaImpl implements TodosDataSink {
 		em.persist(entity);
 		Todo result = mapper.map(entity);
 		return result;
+	}
+
+	@Override
+	public void save(Todo todo) {
+		em.persist(em.merge(mapper.map(todo)));
+	}
+
+	@Override
+	public void delete(long id) {
+		this.findById(id).ifPresent(em::remove);
+	}
+
+	@Override
+	public Optional<Todo> findById(long id) {
+		return Optional.ofNullable(mapper.map(em.find(TodoEntity.class, id)));
 	}
 
 }
