@@ -19,6 +19,7 @@
 		<version.spring>5.3.14</version.spring>
 		<version.spring-data>2021.1.0</version.spring-data>
 		<version.spring-security>5.7.4</version.spring-security>
+		<slf4j.version>1.7.32</slf4j.version>
 	</properties>
 
 	<dependencyManagement>
@@ -79,6 +80,17 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.4.2</version>
+		</dependency>
 		<!-- für Eclipse-Tooling-Support -->
 		<dependency>
 			<groupId>jstl</groupId>
@@ -91,6 +103,17 @@
 			<artifactId>h2</artifactId>
 			<version>1.4.200</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

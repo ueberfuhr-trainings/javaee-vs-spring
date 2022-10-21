@@ -6,6 +6,8 @@
 		<feature>cdi-2.0</feature>
 		<feature>beanValidation-2.0</feature>
 		<feature>jpa-2.2</feature>
+		<feature>jaxrs-2.1</feature>
+		<feature>jaxws-2.2</feature>
 	</featureManager>
 
 	<library id="h2driver">
@@ -20,6 +22,8 @@
 			URL="jdbc:h2:./h2/todos;DB_CLOSE_DELAY=-1;MODE=DB2;AUTO_SERVER=TRUE" />
 		<properties user="sa" />
 	</dataSource>
+
+	<logging consoleLogLevel="INFO" />
 
 	<webApplication id="todos-app" contextRoot="/todos-app"
 		location="todos-javaee-spring.war" />
