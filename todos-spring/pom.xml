@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.sample.javax</groupId>
 	<artifactId>todos-spring</artifactId>
@@ -18,7 +16,7 @@
 		<version.javaee-spec>8.0.1</version.javaee-spec>
 		<version.liberty.profile>20.0.0.10</version.liberty.profile>
 
-		<springdoc-openapi.version>1.6.1</springdoc-openapi.version>
+		<springdoc-openapi.version>1.6.12</springdoc-openapi.version>
 		<slf4j.version>1.7.32</slf4j.version>
 	</properties>
 
@@ -63,6 +61,11 @@
 			<groupId>org.springframework.hateoas</groupId>
 			<artifactId>spring-hateoas</artifactId>
 			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc-openapi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
