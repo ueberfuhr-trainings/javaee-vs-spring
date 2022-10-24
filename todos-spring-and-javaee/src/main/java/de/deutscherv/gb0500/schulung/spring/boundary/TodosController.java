@@ -39,7 +39,7 @@ public class TodosController {
 	}
 
 	@GetMapping(value = "/all")
-	public String getAllTodosAsString(Model model) {
+	public String getAllTodos(Model model) {
 		// Todos aus dem TodosService lesen
 		Collection<Todo> todos = service.getTodos();
 		// Todos ausgeben

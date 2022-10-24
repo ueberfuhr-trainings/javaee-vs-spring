@@ -36,22 +36,20 @@ public class TodosServiceImpl implements TodosService {
 	}
 
 	@Override
-	public boolean deleteTodo(long id) {
+	public void deleteTodo(long id) throws NotFoundException {
 		if (sink.findById(id).isPresent()) {
 			sink.delete(id);
-			return true;
 		} else {
-			return false;
+			throw new NotFoundException();
 		}
 	}
 
 	@Override
-	public boolean updateTodo(Todo todo) {
+	public void updateTodo(Todo todo) throws NotFoundException {
 		if (sink.findById(todo.getId()).isPresent()) {
 			sink.save(todo);
-			return true;
 		} else {
-			return false;
+			throw new NotFoundException();
 		}
 	}
 

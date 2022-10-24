@@ -1,0 +1,61 @@
+openapi: 3.1.0
+info:
+  title: Todos API
+  description: |-
+    Eine tolle API!
+  version: 1.0.0
+servers:
+  - url: http://localhost:9080/todos-spring-and-javaee/api
+    description: Java EE
+  - url: http://localhost:9080/todos-spring-and-javaee/spring/api
+    description: Spring
+paths:
+  /todos:
+    get:
+      summary: Read all todos
+      responses:
+        '200':
+          description: Succesful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'          
+    post:
+      summary: Add a new todo
+      requestBody:
+        description: Todo that should be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+        required: true
+      responses:
+        '201':
+          description: Todo was created successfully.
+          headers:
+            Location:
+              description: URL of the new todo
+              schema:
+                type: string
+        '422':
+          description: Invalid todo
+components:
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        title:
+          type: string 
+          required: true
+          minLength: 3
+        description:
+          type: string
+        dueDate:
+          type: string
+          format: date
+        completed:
+          type: boolean

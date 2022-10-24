@@ -16,11 +16,10 @@ public class SecurityConfig {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-			.withUser("user").password(passwordEncoder().encode("password")).authorities("ROLE_USER")
-			.and()
-			.withUser("admin").password(passwordEncoder().encode("password")).authorities("ROLE_USER", "ROLE_ADMIN");
-;
+		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("password"))
+				.authorities("ROLE_USER").and().withUser("admin").password(passwordEncoder().encode("password"))
+				.authorities("ROLE_USER", "ROLE_ADMIN");
+		;
 	}
 
 	@Bean
@@ -30,7 +29,9 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/**").authenticated().and().httpBasic();
+		http.authorizeRequests()
+			.antMatchers("/test-security").authenticated()
+			.anyRequest().permitAll();
 		return http.build();
 	}
 

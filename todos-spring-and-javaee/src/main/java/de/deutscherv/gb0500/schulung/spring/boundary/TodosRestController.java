@@ -6,6 +6,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.net.URI;
 import java.util.Collection;
 
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.deutscherv.gb0500.schulung.common.domain.NotFoundException;
 import de.deutscherv.gb0500.schulung.common.domain.Todo;
 import de.deutscherv.gb0500.schulung.common.domain.TodosService;
 
@@ -37,15 +42,14 @@ public class TodosRestController {
 	}
 	
 	@GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Todo> findById(@PathVariable("id") long id) {
+	public Todo findById(@PathVariable("id") long id) throws NotFoundException {
 		// TODO in BL runterziehen
 		return service.findTodoById(id)
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
+				.orElseThrow(NotFoundException::new);
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> insert(@RequestBody Todo todo) {
+	public ResponseEntity<Void> create(@Valid @RequestBody Todo todo) throws NotFoundException {
 		Todo createdTodo = service.createTodo(todo);
 		URI location = 
 				linkTo(methodOn(TodosRestController.class).findById(createdTodo.getId()))
@@ -54,22 +58,16 @@ public class TodosRestController {
 	}
 
 	@PutMapping("{id}")
-	public ResponseEntity<Void> update(@PathVariable("id") long id, @RequestBody Todo todo) {
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void update(@PathVariable("id") long id, @Valid  @RequestBody Todo todo) throws NotFoundException {
 		todo.setId(id);
-		if(service.updateTodo(todo)) {
-			return ResponseEntity.noContent().build();
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		service.updateTodo(todo);
 	}
 	
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") long id) {
-		if(service.deleteTodo(id)) {
-			return ResponseEntity.noContent().build();
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable("id") long id) throws NotFoundException {
+		service.deleteTodo(id);
 	}
 
 

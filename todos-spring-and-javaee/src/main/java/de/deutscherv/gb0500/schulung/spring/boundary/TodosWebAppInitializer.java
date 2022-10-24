@@ -34,7 +34,7 @@ public class TodosWebAppInitializer implements WebApplicationInitializer {
 		registration.addMapping("/spring/*");
 
 		// register the security filter
-		servletContext.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class)
-				.addMappingForServletNames(EnumSet.allOf(DispatcherType.class), false, SPRING_SERVLET_NAME);
+//		servletContext.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class)
+//				.addMappingForServletNames(EnumSet.allOf(DispatcherType.class), false, SPRING_SERVLET_NAME);
 	}
 }

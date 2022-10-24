@@ -9,7 +9,7 @@ public interface TodosService {
 	Collection<Todo> findTodos(String st);
 	Todo createTodo(Todo newTodo);
 	Optional<Todo> findTodoById(long id);
-	boolean deleteTodo(long id);
-	boolean updateTodo(Todo todo);
+	void deleteTodo(long id) throws NotFoundException;
+	void updateTodo(Todo todo) throws NotFoundException;
 
 }
