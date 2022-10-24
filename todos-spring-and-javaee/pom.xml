@@ -13,7 +13,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- Java EE version -->
-		<version.javaee-spec>8.0.1</version.javaee-spec>
+		<version.javaee-spec>7.0</version.javaee-spec>
 		<version.liberty.profile>22.0.0.10</version.liberty.profile>
 		<!-- Spring Version -->
 		<version.spring>5.3.14</version.spring>

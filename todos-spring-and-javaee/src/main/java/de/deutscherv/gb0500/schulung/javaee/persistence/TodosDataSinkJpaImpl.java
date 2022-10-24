@@ -26,7 +26,10 @@ public class TodosDataSinkJpaImpl implements TodosDataSink {
 	@Override
 	public Collection<Todo> findAll() {
 		TypedQuery<TodoEntity> query = em.createQuery("SELECT t FROM TodoEntity t", TodoEntity.class);
-		return query.getResultStream().map(mapper::map).collect(Collectors.toList());
+		return query.getResultList()
+				.stream()
+				.map(mapper::map)
+				.collect(Collectors.toList());
 	}
 
 	@Override
