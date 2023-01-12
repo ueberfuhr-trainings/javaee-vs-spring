@@ -1,4 +1,4 @@
-package de.deutscherv.gb0500.schulung.spring.boundary;
+package de.sample.javax.spring.boundary;
 
 import org.springdoc.core.SpringDocConfigProperties;
 import org.springdoc.core.SpringDocConfiguration;
