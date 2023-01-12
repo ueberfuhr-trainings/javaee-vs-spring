@@ -4,7 +4,7 @@ These samples implement the same app (a webapp to manage todos, incl. a relation
 
 - [Plain Java EE](./todos-javaee)
 - [Spring, Java EE integrated](./todos-spring)
-- [both Java EE and Spring together](./todos-spring)
+- [both Java EE and Spring together](./todos-spring-and-javaee)
 - [Spring Boot](./todos-spring-boot)
 
 The goal is to show differences and commonalities. To avoid too much complexity for beginners,
