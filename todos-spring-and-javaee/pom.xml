@@ -19,6 +19,7 @@
 		<version.spring>5.3.14</version.spring>
 		<version.spring-data>2021.1.0</version.spring-data>
 		<version.spring-security>5.7.4</version.spring-security>
+		<version.springdoc-openapi>1.6.12</version.springdoc-openapi>
 		<slf4j.version>1.7.32</slf4j.version>
 	</properties>
 
@@ -84,6 +85,11 @@
 			<groupId>org.springframework.hateoas</groupId>
 			<artifactId>spring-hateoas</artifactId>
 			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${version.springdoc-openapi}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
