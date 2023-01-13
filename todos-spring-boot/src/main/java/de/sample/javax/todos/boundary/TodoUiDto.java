@@ -1,6 +1,7 @@
-package de.sample.javax.todos.domain;
+package de.sample.javax.todos.boundary;
 
-import lombok.Builder;
+import de.sample.javax.todos.domain.DueDate;
+import de.sample.javax.todos.domain.Priority;
 import lombok.Data;
 
 import javax.validation.constraints.Future;
@@ -10,8 +11,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 @Data
-@Builder
-public class Todo {
+public class TodoUiDto {
 
 	private Long id;
 	@NotNull
@@ -21,7 +21,6 @@ public class Todo {
 	@DueDate(period = 12, unit = ChronoUnit.WEEKS)
 	private LocalDate dueDate;
 	@NotNull
-	@Builder.Default
 	private Priority priority = Priority.MEDIUM;
 
 }

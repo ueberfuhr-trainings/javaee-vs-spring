@@ -1,4 +1,4 @@
-package de.sample.javax.todos.boundary;
+package de.sample.javax.todos.boundary.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,69 +1,55 @@
 package de.sample.javax.todos.domain;
 
-import java.util.Collection;
-import java.util.Optional;
-
-import javax.validation.ValidationException;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import de.sample.javax.todos.persistence.TodosRepository;
+import javax.validation.Valid;
+import javax.validation.ValidationException;
+import java.util.Optional;
+import java.util.stream.Stream;
 
+@RequiredArgsConstructor
+@Validated
 @Service
 public class TodosService {
 
-	@Autowired
-	TodosRepository repo;
+    private final TodosSink sink;
 
-	public Collection<Todo> getTodos() {
-		return repo.findAll();
-	}
+    public Stream<Todo> getTodos() {
+        return sink.findAll();
+    }
 
-	public Optional<Todo> findById(long id) {
-		return repo.findById(id);
-	}
+    public Optional<Todo> findById(long id) {
+        return sink.findById(id);
+    }
 
-	public Collection<Todo> getTodos(String title) {
-		return repo.findByTitleContaining(title);
-	}
+    public Stream<Todo> getTodos(String title) {
+        return sink.findByTitle(title);
+    }
 
-	public long add(Todo todo) {
-		if(null != todo.getId()) {
-			// TODO use Bean Validation (Groups)
-			throw new ValidationException();
-		}
-		return repo.save(todo).getId();
-	}
-	
-	public boolean update(Todo todo) {
-		if(null == todo.getId()) {
-			// TODO use Bean Validation (Groups)
-			throw new ValidationException();
-		}
-		if(repo.existsById(todo.getId())) {
-			repo.save(todo);
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public long add(@Valid Todo todo) {
+        if (null != todo.getId()) {
+            // TODO use Bean Validation (Groups)
+            throw new ValidationException();
+        }
+        return sink.add(todo);
+    }
 
-	public boolean remove(long id) {
-		if(repo.existsById(id)) {
-			repo.deleteById(id);
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public boolean update(@Valid Todo todo) {
+        if (null == todo.getId()) {
+            // TODO use Bean Validation (Groups)
+            throw new ValidationException();
+        }
+        return sink.update(todo);
+    }
 
-	public void remove(Todo todo) {
-		repo.delete(todo);
-	}
+    public boolean remove(long id) {
+        return sink.remove(id);
+    }
 
-	public long getCount() {
-		return repo.count();
-	}
+    public long getCount() {
+        return sink.getCount();
+    }
 
 }
