@@ -1,11 +1,10 @@
 package de.sample.javax.todos.boundary.rest;
 
-import java.net.URI;
-import java.util.Collection;
+import de.sample.javax.todos.domain.TodosService;
+import de.sample.javax.todos.persistence.Database;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import javax.validation.ValidationException;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -20,63 +19,64 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
-import de.sample.javax.todos.domain.Todo;
-import de.sample.javax.todos.domain.TodosService;
-import de.sample.javax.todos.persistence.Database;
+import java.net.URI;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Path("/todos")
 public class TodosController {
 
-	@Inject
-	@Database
-	private TodosService service;
+    @Inject
+    @Database
+    private TodosService service;
+    @Inject
+    private TodoDtoMapper mapper;
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Todo findTodoById(@Min(1) @PathParam("id") long id) {
-		return service.findById(id) //
-				.orElseThrow(NotFoundException::new);
-	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    public TodoDto findTodoById(@Min(1) @PathParam("id") long id) {
+        return service.findById(id)
+          .map(mapper::map)
+          .orElseThrow(NotFoundException::new);
+    }
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Todo> findAll() {
-		return service.getTodos();
-	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<TodoDto> findAll() {
+        return service.getTodos()
+          .map(mapper::map)
+          .collect(Collectors.toList());
+    }
 
-	@DELETE
-	@Path("{id}")
-	public Response delete(@Min(1) @PathParam("id") long id) {
-		service.remove(this.findTodoById(id));
-		return Response.noContent().build();
-	}
+    @DELETE
+    @Path("{id}")
+    public void delete(@Min(1) @PathParam("id") long id) {
+        if (!service.remove(id)) {
+            throw new NotFoundException();
+        }
+    }
 
-	@PUT
-	@Path("{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(@Min(1) @PathParam("id") long id, @Valid @NotNull Todo todo) {
-		if (null == todo.getId() || id != todo.getId()) {
-			throw new ValidationException();
-		}
-		if (!service.update(todo)) {
-			throw new NotFoundException();
-		}
-		return Response.noContent().build();
-	}
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void update(@Min(1) @PathParam("id") long id, @Valid @NotNull TodoDto todo) {
+        todo.setId(id);
+        if (!service.update(mapper.map(todo))) {
+            throw new NotFoundException();
+        }
+    }
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response insert(@Valid @NotNull Todo todo, @Context UriInfo info) {
-		if (null != todo.getId()) {
-			throw new ValidationException();
-		}
-		service.add(todo); // TODO: wird ID automatisch gesetzt?
-		URI location = info.getAbsolutePathBuilder() //
-				.path(Long.toString(todo.getId())) //
-				.build();
-		return Response.created(location).build();
-	}
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response insert(@Valid @NotNull TodoDto todoDto, @Context UriInfo info) {
+        var todo = mapper.map(todoDto);
+        service.add(todo);
+        URI location = info.getAbsolutePathBuilder()
+          .path(Long.toString(todo.getId()))
+          .build();
+        var result = mapper.map(todo);
+        return Response.created(location).entity(result).build();
+    }
 
 }

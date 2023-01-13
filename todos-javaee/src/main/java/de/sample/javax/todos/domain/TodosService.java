@@ -1,25 +1,24 @@
 package de.sample.javax.todos.domain;
 
-import java.util.Collection;
-import java.util.Optional;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
+import java.util.stream.Stream;
 
+@Validated
 public interface TodosService {
-	
-	Collection<Todo> getTodos();
-	
-	Collection<Todo> getTodos(String title);
-	
-	@Validated
-	void add(Todo todo);
-	
-	void remove(Todo todo);
 
-	Optional<Todo> findById(@Min(1) long id);
+    Stream<Todo> getTodos();
 
-	boolean update(@Valid @NotNull Todo todo);
+    Stream<Todo> getTodos(String title);
+
+    void add(@Valid Todo todo);
+
+    boolean remove(long id);
+
+    Optional<Todo> findById(@Min(1) long id);
+
+    boolean update(@Valid @NotNull Todo todo);
 
 }

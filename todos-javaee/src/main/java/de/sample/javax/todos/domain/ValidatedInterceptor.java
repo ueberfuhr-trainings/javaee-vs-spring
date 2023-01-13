@@ -1,41 +1,39 @@
 package de.sample.javax.todos.domain;
 
-import java.util.Set;
-
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.validation.ConstraintViolation;
-import javax.validation.ValidationException;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import javax.validation.Validator;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Interceptor
 @Validated
 public class ValidatedInterceptor {
-	
-	@Inject
-	Validator validator;
-	
-	@AroundInvoke
-	public Object executeValidation(InvocationContext ic) throws Exception {
-		// optionale Logik VOR Methodenausführung
-		for(Object param : ic.getParameters()) {
-			Set<ConstraintViolation<Object>> violations = validator.validate(param);
-			if(!violations.isEmpty()) {
-				StringBuilder message = new StringBuilder();
-				for (ConstraintViolation<Object> v : violations) {
-					message
-						.append(v.getPropertyPath())
-						.append(" ")
-						.append(v.getMessage())
-						.append("\n");
-				}
-				throw new ValidationException(message.toString());
-			}
-		}
-		return ic.proceed(); // Aufrufen der Original-Methode
-		// optionale Logik NACH Methodenausführung
-	}
+
+    @Inject
+    private Validator validator;
+
+    @AroundInvoke
+    public Object validateMethodParameters(InvocationContext ic) throws Exception {
+        final var paramAnnotations = ic.getMethod().getParameterAnnotations();
+        final var paramValues = ic.getParameters();
+        for (int i = 0; i < paramAnnotations.length; i++) {
+            boolean shouldValidate = Stream.of(paramAnnotations[i])
+              .anyMatch(Valid.class::isInstance);
+            if (shouldValidate) {
+                Set<ConstraintViolation<Object>> violations = validator.validate(paramValues[i]);
+                if (!violations.isEmpty()) {
+                    throw new ConstraintViolationException(violations);
+                }
+
+            }
+        }
+        return ic.proceed();
+    }
 
 }
