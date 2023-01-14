@@ -1,9 +1,8 @@
 package de.sample.javax.todos.domain;
 
-import java.time.LocalDate;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.time.LocalDate;
 
 public class DueDateValidator implements ConstraintValidator<DueDate, LocalDate> {
 
@@ -16,15 +15,13 @@ public class DueDateValidator implements ConstraintValidator<DueDate, LocalDate>
 
 	@Override
 	public boolean isValid(LocalDate value, ConstraintValidatorContext context) {
-		if(null != value) {
-			if(value.isBefore(LocalDate.now())) {
-				return false;
-			}
-			if(value.isAfter(LocalDate.now().plus(annotation.period(), annotation.unit()))) {
-				return false;
-			}
+		if (null != value) {
+			var now = LocalDate.now();
+			var latest = now.plus(annotation.period(), annotation.unit());
+			return !value.isBefore(now) && !value.isAfter(latest);
+		} else {
+			return true;
 		}
-		return true;
 	}
 
 }

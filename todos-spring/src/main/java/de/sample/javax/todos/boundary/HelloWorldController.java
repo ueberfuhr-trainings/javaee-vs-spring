@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HelloWorldController {
 	
-	@GetMapping(value="/hello", produces = MediaType.TEXT_HTML_VALUE)
+	@GetMapping(value = "/hello", produces = MediaType.TEXT_HTML_VALUE)
 	@ResponseBody
-	public String sayHello(@RequestParam(defaultValue = "World") String name) {
+	public String sayHello(@RequestParam(name = "name", defaultValue = "World") String name) {
 		return "<h1>Hello " + name + "</h1>";
 	}
 	
