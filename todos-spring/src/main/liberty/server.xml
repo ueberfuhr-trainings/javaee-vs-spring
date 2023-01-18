@@ -37,7 +37,7 @@
     <webApplication
             id="todos-app"
             contextRoot="/todos-app"
-            location="todos-javaee-spring.war">
+            location="todos-app.war">
         <classloader commonLibraryRef="hibernate"/>
     </webApplication>
 </server>
