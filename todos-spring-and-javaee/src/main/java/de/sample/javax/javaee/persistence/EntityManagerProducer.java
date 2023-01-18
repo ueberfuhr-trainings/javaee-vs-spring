@@ -1,11 +1,14 @@
 package de.sample.javax.javaee.persistence;
 
+import de.sample.javax.common.persistence.PersistenceConstants;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 
 /*
  * We want to use the container-managed EntityManagerFactory.
@@ -17,7 +20,7 @@ import javax.persistence.EntityManagerFactory;
 public class EntityManagerProducer {
 
     // TODO the EntityManager is not thread-safe!
-    //@PersistenceContext(name = PersistenceConstants.JPA_PERSISTENCE_UNIT_NAME)
+    @PersistenceContext(name = PersistenceConstants.JPA_PERSISTENCE_UNIT_NAME)
     EntityManager em;
 
     @Produces

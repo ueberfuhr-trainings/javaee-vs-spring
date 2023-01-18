@@ -3,9 +3,6 @@
 These samples implement the same app (a webapp to manage todos, incl. a relational database, a REST API) in different ways:
 
 - [Plain Java EE](./todos-javaee)
-- [Spring, Java EE integrated](./todos-spring)
+- [Spring, integrated into Java EE WAR](./todos-spring)
 - [both Java EE and Spring together](./todos-spring-and-javaee)
 - [Spring Boot](./todos-spring-boot)
-
-The goal is to show differences and commonalities. To avoid too much complexity for beginners,
-a clean layered architecture was given up.
