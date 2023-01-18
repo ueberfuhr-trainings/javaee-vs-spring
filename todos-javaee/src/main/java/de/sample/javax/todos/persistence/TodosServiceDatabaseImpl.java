@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @ApplicationScoped
@@ -28,7 +29,12 @@ public class TodosServiceDatabaseImpl implements TodosService {
     public Stream<Todo> getTodos() {
         return em.createNamedQuery("findAll", TodoEntity.class)
           .getResultStream()
-          .map(mapper::map);
+          .map(mapper::map)
+          // we need to catch it all here
+          // because lazy fetching occurs an error
+          // because the result set is already closed then
+          .collect(Collectors.toList())
+          .stream();
     }
 
     @Override
@@ -36,7 +42,12 @@ public class TodosServiceDatabaseImpl implements TodosService {
         var query = em.createNamedQuery("findByTitle", TodoEntity.class);
         query.setParameter("titleparam", "%" + title + "%");
         return query.getResultStream()
-          .map(mapper::map);
+          .map(mapper::map)
+          // we need to catch it all here
+          // because lazy fetching occurs an error
+          // because the result set is already closed then
+          .collect(Collectors.toList())
+          .stream();
     }
 
     public Optional<Todo> findById(long id) {

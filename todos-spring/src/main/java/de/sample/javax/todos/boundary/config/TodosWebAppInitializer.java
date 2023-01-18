@@ -19,7 +19,7 @@ public class TodosWebAppInitializer implements WebApplicationInitializer {
         context.register(AppConfig.class);
 
         servletContext.addListener(new ContextLoaderListener(context));
-        
+
         // Create and register the DispatcherServlet
         DispatcherServlet servlet = new DispatcherServlet(context);
         ServletRegistration.Dynamic registration = servletContext.addServlet("app", servlet);

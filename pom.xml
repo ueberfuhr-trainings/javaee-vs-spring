@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.sample.javax</groupId>
-	<artifactId>todos-app-aggregator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>Todos Management Applications</name>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.sample.javax</groupId>
+    <artifactId>todos-app-aggregator</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Todos Management Applications</name>
 
-	<modules>
-		<module>todos-javaee</module>
-		<module>todos-spring</module>
-		<module>todos-spring-boot</module>
-		<module>todos-spring-and-javaee</module>
-	</modules>
+    <modules>
+        <module>todos-javaee</module>
+        <module>todos-spring</module>
+        <module>todos-spring-boot</module>
+        <module>todos-spring-and-javaee</module>
+    </modules>
 
 </project>

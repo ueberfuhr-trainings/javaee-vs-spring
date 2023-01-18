@@ -17,38 +17,38 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-			.allowedOrigins("https://editor.swagger.io");
-	}
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+          .allowedOrigins("https://editor.swagger.io");
+    }
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**") //
-				.addResourceLocations("classpath:/");
-	}
-	
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/") //
-				.setViewName("redirect:/index.html");
-	}
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**") //
+          .addResourceLocations("classpath:/");
+    }
 
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
-		registrar.setUseIsoFormat(true);
-		registrar.registerFormatters(registry);
-	}
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/") //
+          .setViewName("redirect:/index.html");
+    }
 
-	@Bean
-	public ViewResolver internalViewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setViewClass(JstlView.class);
-		resolver.setPrefix("/WEB-INF/jsp/");
-		resolver.setSuffix(".jsp");
-		return resolver;
-	}
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+        registrar.setUseIsoFormat(true);
+        registrar.registerFormatters(registry);
+    }
+
+    @Bean
+    public ViewResolver internalViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setViewClass(JstlView.class);
+        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
 
 }

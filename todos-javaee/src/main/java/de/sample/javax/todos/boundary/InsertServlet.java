@@ -1,22 +1,20 @@
 package de.sample.javax.todos.boundary;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import de.sample.javax.todos.domain.Priority;
+import de.sample.javax.todos.domain.Todo;
+import de.sample.javax.todos.domain.TodosService;
+import de.sample.javax.todos.persistence.Database;
 
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ValidationException;
-
-import de.sample.javax.todos.domain.Priority;
-import de.sample.javax.todos.domain.Todo;
-import de.sample.javax.todos.domain.TodosService;
-import de.sample.javax.todos.persistence.Database;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @WebServlet("/insert")
 public class InsertServlet extends HttpServlet {
@@ -27,7 +25,8 @@ public class InsertServlet extends HttpServlet {
     TodosService service;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
         // Request-Parameter auslesen
         String titleParam = request.getParameter("title");
         String dueDateParam = request.getParameter("dueDate");

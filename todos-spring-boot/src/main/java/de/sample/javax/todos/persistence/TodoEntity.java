@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,10 +23,10 @@ import java.time.temporal.ChronoUnit;
 
 @Entity(name = "Todo")
 @Table(name = "todos")
-@NamedQueries({ //
-  @NamedQuery(name = "findAll", query = "SELECT t FROM Todo t"), // JPQL
+@NamedQueries({
+  @NamedQuery(name = "findAll", query = "SELECT t FROM Todo t"),
   @NamedQuery(name = "findByTitle",
-    query = "SELECT t FROM Todo t WHERE LOWER(t.title) LIKE LOWER (:titleparam)") // JPQL
+    query = "SELECT t FROM Todo t WHERE LOWER(t.title) LIKE LOWER (:titleparam)")
 })
 @Getter
 @Setter
@@ -42,6 +44,7 @@ public class TodoEntity {
     @Column(name = "duedate")
     private LocalDate dueDate;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Priority priority = Priority.MEDIUM;
 
 }

@@ -13,19 +13,19 @@ import java.util.stream.Collectors;
 @WebService(serviceName = "TodosSoapService")
 public class TodosWebservice {
 
-	@Inject
-	@Database
-	private TodosService service;
+    @Inject
+    @Database
+    private TodosService service;
 
-	@WebMethod
-	public Collection<Todo> findAll() {
-		return service.getTodos()
-		.collect(Collectors.toList());
-	}
+    @WebMethod
+    public Collection<Todo> findAll() {
+        return service.getTodos()
+          .collect(Collectors.toList());
+    }
 
-	@WebMethod
-	public Todo findById(long id) {
-		return service.findById(id).orElse(null);
-	}
+    @WebMethod
+    public Todo findById(long id) {
+        return service.findById(id).orElse(null);
+    }
 
 }

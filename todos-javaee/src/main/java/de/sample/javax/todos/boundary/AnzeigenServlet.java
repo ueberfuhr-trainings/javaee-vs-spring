@@ -1,8 +1,8 @@
 package de.sample.javax.todos.boundary;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import de.sample.javax.todos.domain.Todo;
+import de.sample.javax.todos.domain.TodosService;
+import de.sample.javax.todos.persistence.Database;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,10 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import de.sample.javax.todos.domain.Todo;
-import de.sample.javax.todos.domain.TodosService;
-import de.sample.javax.todos.persistence.Database;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @WebServlet("/anzeige")
 public class AnzeigenServlet extends HttpServlet {

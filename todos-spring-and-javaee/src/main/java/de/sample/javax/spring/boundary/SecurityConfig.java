@@ -14,25 +14,29 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("password"))
-				.authorities("ROLE_USER").and().withUser("admin").password(passwordEncoder().encode("password"))
-				.authorities("ROLE_USER", "ROLE_ADMIN");
-		;
-	}
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+          .withUser("user")
+          .password(passwordEncoder().encode("password"))
+          .authorities("ROLE_USER")
+          .and()
+          .withUser("admin")
+          .password(passwordEncoder().encode("password"))
+          .authorities("ROLE_USER", "ROLE_ADMIN");
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/test-security").authenticated()
-			.anyRequest().permitAll();
-		return http.build();
-	}
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+          .antMatchers("/test-security").authenticated()
+          .anyRequest().permitAll();
+        return http.build();
+    }
 
 }

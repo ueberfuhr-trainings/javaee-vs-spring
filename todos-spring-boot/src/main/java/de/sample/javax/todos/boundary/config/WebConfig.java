@@ -14,32 +14,32 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**") //
-				.addResourceLocations("classpath:/static-files/");
-	}
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**") //
+          .addResourceLocations("classpath:/static-files/");
+    }
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/") //
-				.setViewName("redirect:/index.html");
-	}
-	
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
-		registrar.setUseIsoFormat(true);
-		registrar.registerFormatters(registry);
-	}
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/") //
+          .setViewName("redirect:/index.html");
+    }
 
-	@Bean
-	public ViewResolver internalViewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setViewClass(JstlView.class);
-		resolver.setPrefix("/jsp/");
-		resolver.setSuffix(".jsp");
-		return resolver;
-	}
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+        registrar.setUseIsoFormat(true);
+        registrar.registerFormatters(registry);
+    }
+
+    @Bean
+    public ViewResolver internalViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setViewClass(JstlView.class);
+        resolver.setPrefix("/jsp/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
 
 }

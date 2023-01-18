@@ -1,56 +1,61 @@
 package de.sample.javax.common.domain;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
+import javax.validation.Valid;
+import javax.validation.ValidationException;
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+@RequiredArgsConstructor
 public class TodosServiceImpl implements TodosService {
 
-	private final TodosDataSink sink;
+    private final TodosSink sink;
 
-	public TodosServiceImpl(TodosDataSink sink) {
-		super();
-		this.sink = sink;
-	}
+    @Override
+    public Stream<Todo> getTodos() {
+        return sink.findAll();
+    }
 
-	@Override
-	public Collection<Todo> getTodos() {
-		return sink.findAll();
-	}
+    @Override
+    public Optional<Todo> findById(long id) {
+        return sink.findById(id);
+    }
 
-	@Override
-	public Collection<Todo> findTodos(String st) {
-		// TODO Suche direkt auf der Datenbank
-		return getTodos().stream().filter(t -> t.getTitle().toLowerCase().contains(st.toLowerCase()))
-				.collect(Collectors.toList());
-	}
+    @Override
+    public Stream<Todo> getTodos(String title) {
+        Objects.requireNonNull(title);
+        return sink.findByTitle(title);
+    }
 
-	@Override
-	public Todo createTodo(Todo newTodo) {
-		return sink.insert(newTodo);
-	}
+    @Override
+    public long add(@Valid @NotNull Todo todo) {
+        if (null != todo.getId()) {
+            // TODO use Bean Validation (Groups)
+            throw new ValidationException();
+        }
+        return sink.add(todo);
+    }
 
-	@Override
-	public Optional<Todo> findTodoById(long id) {
-		return sink.findById(id);
-	}
+    @Override
+    public boolean update(@Valid @NotNull Todo todo) {
+        if (null == todo.getId()) {
+            // TODO use Bean Validation (Groups)
+            throw new ValidationException();
+        }
+        return sink.update(todo);
+    }
 
-	@Override
-	public void deleteTodo(long id) throws NotFoundException {
-		if (sink.findById(id).isPresent()) {
-			sink.delete(id);
-		} else {
-			throw new NotFoundException();
-		}
-	}
+    @Override
+    public boolean remove(long id) {
+        return sink.remove(id);
+    }
 
-	@Override
-	public void updateTodo(Todo todo) throws NotFoundException {
-		if (sink.findById(todo.getId()).isPresent()) {
-			sink.save(todo);
-		} else {
-			throw new NotFoundException();
-		}
-	}
+    @Override
+    public long getCount() {
+        return sink.getCount();
+    }
 
 }

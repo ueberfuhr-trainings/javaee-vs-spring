@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Todos-Verwaltung</title>
+    <meta charset="ISO-8859-1">
+    <title>Todos-Verwaltung</title>
 </head>
 <body>
 
-	<h1>Todos-Verwaltung</h1>
+<h1>Todos-Verwaltung</h1>
 
-	<h2>Anwendung testen</h2>
-	<ul>
-		<li><a href="./db">Datasource testen</a></li>
-		<li><a href="./db-jpa">JPA testen</a></li>
-		<li><a href="./spring/test-security">Security testen</a></li>
-		<li><a href="./spring/swagger-ui.html">Swagger-UI (Spring)</a></li>
-	</ul>
-	
-	<h2>Alle Todos anzeigen</h2>
-	<ul>
-		<li><a href="./todos">mit Java EE</a></li>
-		<li><a href="./api/todos">mit Java EE (REST)</a></li>
-		<li><a href="./spring/todos/all">mit Spring</a></li>
-		<li><a href="./spring/jdbc/todos/all">mit Spring (JDBC)</a></li>
-		<li><a href="./spring/api/todos">mit Spring (REST)</a></li>
-	</ul>
+<h2>Anwendung testen</h2>
+<ul>
+    <li><a href="./db">Datasource testen</a></li>
+    <li><a href="./db-jpa">JPA testen</a></li>
+    <li><a href="./spring/test-security">Security testen</a></li>
+    <li><a href="./spring/swagger-ui.html">Swagger-UI (Spring)</a></li>
+</ul>
 
-	<h2>Todos suchen</h2>
-	<!-- mit Java EE -->
-	<form action="./search" method="get">
-		<input type="text" required="required" name="searchtext">
-		<input type="submit" value="Suche mit Java EE">
-	</form>
+<h2>Alle Todos anzeigen</h2>
+<ul>
+    <li><a href="./todos">mit Java EE</a></li>
+    <li><a href="./api/v1/todos">mit Java EE (REST)</a></li>
+    <li><a href="./spring/todos/all">mit Spring</a></li>
+    <li><a href="./spring/jdbc/todos/all">mit Spring (JDBC)</a></li>
+    <li><a href="./spring/api/v1/todos">mit Spring (REST)</a></li>
+</ul>
 
-	<!-- mit Spring -->
-	<form action="./spring/todos/search" method="get">
-		<input type="text" required="required" name="searchtext">
-		<input type="submit" value="Suche mit Spring">
-	</form>
+<h2>Todos suchen</h2>
+<!-- mit Java EE -->
+<form action="./search" method="get">
+    <input type="text" required="required" name="searchtext">
+    <input type="submit" value="Suche mit Java EE">
+</form>
 
-	<!-- mit Spring JDBC -->
-	<form action="./spring/jdbc/todos/search" method="get">
-		<input type="text" required="required" name="searchtext">
-		<input type="submit" value="Suche mit Spring (JDBC)">
-	</form>
+<!-- mit Spring -->
+<form action="./spring/todos/search" method="get">
+    <input type="text" required="required" name="searchtext">
+    <input type="submit" value="Suche mit Spring">
+</form>
 
-	<h2>Todos erstellen</h2>
-	<!-- mit Java EE -->
-	<form action="./create" method="post">
-		<input type="text" required="required" name="title">
-		<input type="submit" value="Erstellen mit Java EE">
-	</form>
+<!-- mit Spring JDBC -->
+<form action="./spring/jdbc/todos/search" method="get">
+    <input type="text" required="required" name="searchtext">
+    <input type="submit" value="Suche mit Spring (JDBC)">
+</form>
 
-	<!-- mit Spring -->
-	<form action="./spring/todos/create" method="post">
-		<input type="text" required="required" name="title">
-		<input type="submit" value="Erstellen mit Spring">
-	</form>
+<h2>Todos erstellen</h2>
+<!-- mit Java EE -->
+<form action="./create" method="post">
+    <input type="text" required="required" name="title">
+    <input type="submit" value="Erstellen mit Java EE">
+</form>
 
-	<!-- mit Spring (JDBC) -->
-	<form action="./spring/jdbc/todos/create" method="post">
-		<input type="text" required="required" name="title">
-		<input type="submit" value="Erstellen mit Spring (JDBC)">
-	</form>
+<!-- mit Spring -->
+<form action="./spring/todos/create" method="post">
+    <input type="text" required="required" name="title">
+    <input type="submit" value="Erstellen mit Spring">
+</form>
 
-	<h2>SOAP-Service</h2>
-	<ul>
-		<li><a href="TodosSoapService?wsdl">TodosSoapService (WSDL)</a></li>
-	</ul>
+<!-- mit Spring (JDBC) -->
+<form action="./spring/jdbc/todos/create" method="post">
+    <input type="text" required="required" name="title">
+    <input type="submit" value="Erstellen mit Spring (JDBC)">
+</form>
+
+<h2>SOAP-Service</h2>
+<ul>
+    <li><a href="TodosSoapService?wsdl">TodosSoapService (WSDL)</a></li>
+</ul>
 
 </body>
 </html>

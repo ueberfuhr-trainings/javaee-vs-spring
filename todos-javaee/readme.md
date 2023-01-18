@@ -8,7 +8,7 @@
 
 ### Starting Project on Liberty
 
-`mvn liberty:start -Plocal` 
+`mvn liberty:start -Plocal`
 
 ### Opening Project Homepage
 

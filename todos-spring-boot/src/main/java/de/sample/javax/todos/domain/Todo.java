@@ -13,15 +13,15 @@ import java.time.temporal.ChronoUnit;
 @Builder
 public class Todo {
 
-	private Long id;
-	@NotNull
-	@Size(min = 3, message = "muss länger als {min} Zeichen sein")
-	private String title;
-	@Future
-	@DueDate(period = 12, unit = ChronoUnit.WEEKS)
-	private LocalDate dueDate;
-	@NotNull
-	@Builder.Default
-	private Priority priority = Priority.MEDIUM;
+    private Long id;
+    @NotNull
+    @Size(min = 3, message = "muss länger als {min} Zeichen sein")
+    private String title;
+    @Future
+    @DueDate(period = 12, unit = ChronoUnit.WEEKS)
+    private LocalDate dueDate;
+    @NotNull
+    @Builder.Default
+    private Priority priority = Priority.MEDIUM;
 
 }

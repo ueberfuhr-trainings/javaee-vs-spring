@@ -14,16 +14,16 @@ import java.time.temporal.ChronoUnit;
 @Data
 public class TodoDto {
 
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	private Long id;
-	@NotNull
-	@Size(min = 3, message = "muss länger als {min} Zeichen sein")
-	private String title;
-	@Future
-	@DueDate(period = 12, unit = ChronoUnit.WEEKS)
-	@JsonProperty("due_date")
-	private LocalDate dueDate;
-	@NotNull
-	private Priority priority = Priority.MEDIUM;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Long id;
+    @NotNull
+    @Size(min = 3, message = "muss länger als {min} Zeichen sein")
+    private String title;
+    @Future
+    @DueDate(period = 12, unit = ChronoUnit.WEEKS)
+    @JsonProperty("due_date")
+    private LocalDate dueDate;
+    @NotNull
+    private Priority priority = Priority.MEDIUM;
 
 }

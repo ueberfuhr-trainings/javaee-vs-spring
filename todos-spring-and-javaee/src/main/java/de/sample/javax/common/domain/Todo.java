@@ -1,64 +1,27 @@
 package de.sample.javax.common.domain;
 
-import java.time.LocalDate;
+import lombok.Builder;
+import lombok.Data;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
+@Data
+@Builder
 public class Todo {
 
-	private Long id;
-	@NotNull
-	@Size(min = 3)
-	private String title;
-	private String description;
-	private LocalDate dueDate;
-	private boolean done; // enum?
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public LocalDate getDueDate() {
-		return dueDate;
-	}
-
-	public void setDueDate(LocalDate dueDate) {
-		this.dueDate = dueDate;
-	}
-
-	public boolean isDone() {
-		return done;
-	}
-
-	public void setDone(boolean done) {
-		this.done = done;
-	}
-
-	@Override
-	public String toString() {
-		return "Todo [title=" + title + ", description=" + description + ", dueDate=" + dueDate + ", done=" + done
-				+ "]";
-	}
+    private Long id;
+    @NotNull
+    @Size(min = 3, message = "muss länger als {min} Zeichen sein")
+    private String title;
+    @Future
+    @DueDate(period = 12, unit = ChronoUnit.WEEKS)
+    private LocalDate dueDate;
+    @NotNull
+    @Builder.Default
+    private Priority priority = Priority.MEDIUM;
 
 }

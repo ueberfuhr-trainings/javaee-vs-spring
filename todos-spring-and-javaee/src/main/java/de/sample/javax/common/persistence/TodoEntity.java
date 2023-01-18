@@ -1,64 +1,50 @@
 package de.sample.javax.common.persistence;
 
-import java.time.LocalDate;
+import de.sample.javax.common.domain.DueDate;
+import de.sample.javax.common.domain.Priority;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
-@Entity
+@Entity(name = "Todo")
 @Table(name = "todos")
+@NamedQueries({
+  @NamedQuery(name = "findAll", query = "SELECT t FROM Todo t"),
+  @NamedQuery(name = "findByTitle",
+    query = "SELECT t FROM Todo t WHERE LOWER(t.title) LIKE LOWER (:titleparam)")
+})
+@Getter
+@Setter
 public class TodoEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String title;
-	private String description;
-	private LocalDate dueDate;
-	private boolean done; // enum?
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    @NotNull
+    @Size(min = 3, message = "muss länger als {min} Zeichen sein")
+    private String title;
+    @Future
+    @DueDate(period = 12, unit = ChronoUnit.WEEKS)
+    @Column(name = "duedate")
+    private LocalDate dueDate;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Priority priority = Priority.MEDIUM;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public LocalDate getDueDate() {
-		return dueDate;
-	}
-
-	public void setDueDate(LocalDate dueDate) {
-		this.dueDate = dueDate;
-	}
-
-	public boolean isDone() {
-		return done;
-	}
-
-	public void setDone(boolean done) {
-		this.done = done;
-	}
-
-	
 }

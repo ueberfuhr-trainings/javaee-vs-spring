@@ -12,10 +12,10 @@ import javax.validation.ValidationException;
 // use @RestControllerAdvice to get these status codes documented as well
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-	@ExceptionHandler(ValidationException.class)
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	void handleValidationException() {
-		// nothing to implement
-	}
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    void handleValidationException() {
+        // nothing to implement
+    }
 
 }

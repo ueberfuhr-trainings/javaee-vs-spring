@@ -52,7 +52,7 @@ public class TodosServiceMemoryImpl implements TodosService {
           .mapToLong(Todo::getId)
           .max()
           .orElse(0L)
-          +1;
+          + 1;
         todo.setId(newId);
         this.todos.add(todo);
     }

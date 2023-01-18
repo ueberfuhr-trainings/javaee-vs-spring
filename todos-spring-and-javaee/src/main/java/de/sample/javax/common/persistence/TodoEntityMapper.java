@@ -1,35 +1,18 @@
 package de.sample.javax.common.persistence;
 
 import de.sample.javax.common.domain.Todo;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
-public class TodoEntityMapper {
+@Mapper
+public interface TodoEntityMapper {
 
-	public Todo map(TodoEntity source) {
-		// TODO use MapStruct
-		if(null == source) {
-			return null;
-		} else {
-			Todo t = new Todo();
-			t.setId(source.getId());
-			t.setTitle(source.getTitle());
-			t.setDueDate(source.getDueDate());
-			t.setDone(source.isDone());
-			return t;
-		}
-	}
+    Todo map(TodoEntity source);
 
-	public TodoEntity map(Todo source) {
-		// TODO use MapStruct
-		if(null == source) {
-			return null;
-		} else {
-			TodoEntity t = new TodoEntity();
-			t.setId(source.getId());
-			t.setTitle(source.getTitle());
-			t.setDueDate(source.getDueDate());
-			t.setDone(source.isDone());
-			return t;
-		}
-	}
+    TodoEntity map(Todo source);
+
+    @Mapping(target = "id", ignore = true)
+    void copy(Todo source, @MappingTarget TodoEntity target);
 
 }

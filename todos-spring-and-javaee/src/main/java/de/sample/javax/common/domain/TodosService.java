@@ -1,15 +1,21 @@
 package de.sample.javax.common.domain;
 
-import java.util.Collection;
+import javax.validation.Valid;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface TodosService {
-	
-	Collection<Todo> getTodos();
-	Collection<Todo> findTodos(String st);
-	Todo createTodo(Todo newTodo);
-	Optional<Todo> findTodoById(long id);
-	void deleteTodo(long id) throws NotFoundException;
-	void updateTodo(Todo todo) throws NotFoundException;
+    Stream<Todo> getTodos();
 
+    Optional<Todo> findById(long id);
+
+    Stream<Todo> getTodos(String title);
+
+    long add(@Valid Todo todo);
+
+    boolean update(@Valid Todo todo);
+
+    boolean remove(long id);
+
+    long getCount();
 }
