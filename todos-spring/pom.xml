@@ -51,14 +51,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.ibm.websphere.appserver.features/jpa-2.0 -->
-        <dependency>
-            <groupId>com.ibm.websphere.appserver.features</groupId>
-            <artifactId>jpa-2.0-container</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/com.ibm.ws.jpa.container_1.0.72.jar</systemPath>
-        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
