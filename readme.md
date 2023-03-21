@@ -6,3 +6,4 @@ These samples implement the same app (a webapp to manage todos, incl. a relation
 - [Spring, integrated into Java EE WAR](./todos-spring)
 - [both Java EE and Spring together](./todos-spring-and-javaee)
 - [Spring Boot](./todos-spring-boot)
+- [Quarkus](./todos-quarkus)
