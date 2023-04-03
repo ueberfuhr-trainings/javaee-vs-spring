@@ -13,6 +13,7 @@
         <module>todos-spring</module>
         <module>todos-spring-boot</module>
         <module>todos-spring-and-javaee</module>
+        <module>todos-quarkus</module>
     </modules>
 
 </project>
