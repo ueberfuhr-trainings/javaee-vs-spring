@@ -1,5 +1,8 @@
 package de.sample.javax.servlets;
 
+import org.eclipse.microprofile.config.inject.ConfigProperties;
+
+import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +14,10 @@ import java.io.PrintWriter;
 public class HelloWorldServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    @Inject
+    @ConfigProperties
+    HelloWorldConfig config;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
@@ -19,7 +26,7 @@ public class HelloWorldServlet extends HttpServlet {
         String name = request.getParameter("name");
         // Konvertieren und Validieren
         if (null == name || name.isEmpty()) {
-            name = "World";
+            name = config.getDefaultName();
         }
 
         // Aktion
@@ -31,9 +38,9 @@ public class HelloWorldServlet extends HttpServlet {
         // - response.sendError(405);
         // - response.sendRedirect("xyz");
         // oder: forward
-        response.setContentType("text/html");
+        response.setContentType(config.getContentType());
         try (PrintWriter out = response.getWriter()) {
-            out.println("<h1>Hello " + name + "!</h1>");
+            out.println(config.getPattern().replace("{0}", name));
         }
     }
 
